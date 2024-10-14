@@ -10,18 +10,17 @@ const TimeSeriesChart: React.FC<TimeSeriesChartProps> = ({ data }) => {
   const series = [
     {
       name: "Visitors",
-      data: data.map((d) => [new Date(d.date).getTime(), d.visitors]), // Ensure UNIX timestamp
+      data: data.map((d) => [new Date(d.date).getTime(), d.visitors]),
     },
   ];
 
   const options: ApexOptions = {
-    // Explicitly set the type for options
     chart: { type: "line", zoom: { enabled: true } },
     xaxis: {
       type: "datetime",
       labels: {
-        formatter: function (val: number) {
-          return new Date(val).toLocaleDateString(); // Format date labels
+        formatter: (value: string, timestamp?: number): string => {
+          return new Date(timestamp!).toLocaleDateString();
         },
       },
     },
